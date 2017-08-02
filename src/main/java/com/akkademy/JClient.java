@@ -3,6 +3,7 @@ package com.akkademy;
 import akka.actor.ActorSelection;
 import akka.actor.ActorSystem;
 import com.akkademy.messages.GetRequest;
+import com.akkademy.messages.SetIfAbsentRequest;
 import com.akkademy.messages.SetRequest;
 
 import java.util.concurrent.CompletionStage;
@@ -23,6 +24,10 @@ public class JClient {
 
     public CompletionStage set(String key, Object value) {
         return toJava(ask(remoteDb, new SetRequest(key, value), 2000));
+    }
+
+    public CompletionStage setIfAbsent(String key, Object value) {
+        return toJava(ask(remoteDb, new SetIfAbsentRequest(key, value), 2000));
     }
 
     public CompletionStage<Object> get(String key) {
